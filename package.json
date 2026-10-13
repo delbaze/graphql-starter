@@ -1,0 +1,34 @@
+{
+  "name": "graphql-starter",
+  "version": "1.0.0",
+  "description": "Projet de depart GraphQL : Express + Apollo Server + TypeScript + codegen",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.ts",
+    "dev": "npm run codegen && tsx watch --include \"src/**/*.graphql\" src/index.ts",
+    "start": "npm run codegen && tsx src/index.ts",
+    "typecheck": "npm run codegen && tsc"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.0.0",
+    "@as-integrations/express5": "^1.1.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0",
+    "graphql-fields": "^2.0.3"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.7",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-resolvers": "^4.5.1",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.3",
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}

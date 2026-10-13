@@ -1,0 +1,34 @@
+enum Genre {
+  ROMAN
+  SF
+  POLICIER
+  ESSAI
+}
+
+"Un livre de la bibliotheque"
+type Book {
+  id: ID!
+  title: String!
+  year: Int
+  genre: Genre!
+  "Resolu a partir de authorId, qui n'est pas expose dans le schema"
+  author: Author!
+}
+
+input AddBookInput {
+  title: String!
+  year: Int
+  genre: Genre!
+  authorId: ID!
+}
+
+extend type Query {
+  "Liste des livres, filtrable par genre"
+  books(genre: Genre): [Book!]!
+  book(id: ID!): Book
+}
+
+extend type Mutation {
+  addBook(input: AddBookInput!): Book!
+  deleteBook(id: ID!): Boolean!
+}

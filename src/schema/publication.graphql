@@ -1,0 +1,31 @@
+"Champs communs a toutes les publications"
+interface LivreBase {
+  id: ID!
+  title: String!
+  author: Author!
+}
+
+"Bande dessinee"
+type BD implements LivreBase {
+  id: ID!
+  title: String!
+  author: Author!
+  "Vrai si la BD est en couleur"
+  color: Boolean!
+}
+
+type Roman implements LivreBase {
+  id: ID!
+  title: String!
+  author: Author!
+  "Vrai si le roman contient une preface"
+  preface: Boolean!
+}
+
+"Une publication : soit une BD, soit un roman"
+union BDOrRoman = BD | Roman
+
+extend type Query {
+  "BD et romans melanges"
+  publications: [BDOrRoman!]!
+}

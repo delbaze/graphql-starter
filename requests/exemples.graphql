@@ -1,0 +1,50 @@
+# Requetes a copier dans Apollo Sandbox (http://localhost:4000/graphql)
+
+# 1. Liste simple
+query ListeLivres {
+  books {
+    id
+    title
+    year
+  }
+}
+
+# 2. Filtre par argument + champ imbrique (field resolver Book.author)
+query LivresSF {
+  books(genre: SF) {
+    title
+    author {
+      name
+    }
+  }
+}
+
+# 3. Variables : dans le panneau "Variables" de la Sandbox, saisir { "id": "2" }
+query Auteur($id: ID!) {
+  author(id: $id) {
+    name
+    books {
+      title
+      genre
+    }
+  }
+}
+
+# 4. Mutation avec input type
+# Variables : { "input": { "title": "Germinal", "year": 1885, "genre": "ROMAN", "authorId": "1" } }
+mutation AjoutLivre($input: AddBookInput!) {
+  addBook(input: $input) {
+    id
+    title
+    author {
+      name
+    }
+  }
+}
+
+# 5. Erreur metier (auteur inexistant) : observer le champ "errors" de la reponse
+mutation AjoutLivreInvalide {
+  addBook(input: { title: "Inconnu", genre: ESSAI, authorId: "999" }) {
+    id
+  }
+}

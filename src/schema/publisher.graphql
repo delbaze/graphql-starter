@@ -1,0 +1,46 @@
+"Maison d'edition"
+type Publisher {
+  id: ID!
+  name: String!
+  "Pays du siege, si connu"
+  country: String
+  "Annee de creation, si connue"
+  foundedYear: Int
+  "Livres publies par cet editeur"
+  books: [Book!]!
+}
+
+extend type Book {
+  "Editeur, null s'il est inconnu"
+  publisher: Publisher
+}
+
+"Donnees pour creer un editeur"
+input AddPublisherInput {
+  name: String!
+  country: String
+  foundedYear: Int
+}
+
+"Seuls les champs fournis sont modifies ; null efface country ou foundedYear"
+input UpdatePublisherInput {
+  name: String
+  country: String
+  foundedYear: Int
+}
+
+extend type Query {
+  "Tous les editeurs"
+  publishers: [Publisher!]!
+  "Un editeur, null s'il n'existe pas"
+  publisher(id: ID!): Publisher
+}
+
+extend type Mutation {
+  "Cree un editeur"
+  addPublisher(input: AddPublisherInput!): Publisher!
+  "Modifie un editeur, null s'il n'existe pas"
+  updatePublisher(id: ID!, input: UpdatePublisherInput!): Publisher
+  "true si l'editeur a ete supprime, false s'il n'existait pas"
+  deletePublisher(id: ID!): Boolean!
+}

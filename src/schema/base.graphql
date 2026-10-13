@@ -1,0 +1,4 @@
+# Types racines du schema.
+# Chaque domaine (author.graphql, book.graphql...) les complete avec "extend type".
+type Query 
+type Mutation

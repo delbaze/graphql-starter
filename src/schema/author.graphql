@@ -1,0 +1,16 @@
+"Un auteur de la bibliotheque"
+type Author {
+  id: ID!
+  name: String!
+  "Les livres ecrits par cet auteur (resolu par un field resolver)"
+  books: [Book!]!
+}
+
+extend type Query {
+  authors: [Author!]!
+  author(id: ID!): Author
+}
+
+extend type Mutation {
+  addAuthor(name: String!): Author!
+}
